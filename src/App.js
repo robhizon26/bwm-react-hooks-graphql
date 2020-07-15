@@ -7,11 +7,9 @@ import { AuthProvider, useAuth } from "providers/AuthProvider";
 import { MapProvider } from "providers/MapProvider";
 
 import { ToastContainer } from "react-toastify";
-import {  configureRentalStore, configureAuthStore, configureBookingStore } from "./hooks-store";
+import {  configureHookStore } from "./hooks-store";
 
-configureRentalStore();
-configureAuthStore();
-configureBookingStore();
+configureHookStore();
 
 const Providers = ({ children }) => (
     <AuthProvider>

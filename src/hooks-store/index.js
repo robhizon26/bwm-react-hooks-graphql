@@ -10,9 +10,10 @@ const initialState = {
   auth: { isAuth: false, username: "" },
 };
 
-export const configureRentalStore = () =>
+export const configureHookStore =()=>{
   initRentalStore({ ...commonActions, ...rentalActions }, initialState);
-export const configureAuthStore = () =>
   initAuthStore({ ...commonActions, ...authActions }, initialState);
-export const configureBookingStore = () =>
   initBookingStore({ ...commonActions, ...bookingActions }, initialState);
+}
+ 
+ 
