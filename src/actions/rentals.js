@@ -1,58 +1,15 @@
 import axiosService from "services/AxiosService";
+import { reqVerifyRentalOwner, reqCreateRental } from './requestBody';
 const { bwmAxios } = axiosService;
 
-export const verifyRentalOwner = (rentalId) => {
-  const requestBody = {
-    query: `
-      query ($rentalId: String!) {
-        verifyUser(rentalId: $rentalId) {
-          status
-        }
-      }
-    `,
-    variables: {
-      rentalId,
-    },
-  };
+export const verifyRentalOwner = rentalId => {
   return bwmAxios
-    .post("/graphql", requestBody)
+    .post("/graphql", reqVerifyRentalOwner(rentalId))
     .then((res) => res.data.data.verifyUser);
 };
 
-export const createRental = (rental) => {
-  const {
-    title,
-    city,
-    street,
-    category,
-    numOfRooms,
-    description,
-    dailyPrice,
-    shared,
-    image,
-  } = rental;
-  console.log(!!shared)
-  const requestBody = {
-    query: `
-      mutation ($title: String!, $city: String!, $street: String!, $category: String!, $numOfRooms: Int!, $description: String!, $dailyPrice: Float!, $shared: Boolean, $image: String!)  {
-        createRental(createRentalInput:{title: $title, city: $city, street: $street, category: $category, numOfRooms: $numOfRooms, description: $description, dailyPrice: $dailyPrice, shared: $shared, image: $image}) {
-          _id
-        }
-      }
-    `,
-    variables: {
-      title,
-      city,
-      street,
-      category,
-      numOfRooms: +numOfRooms,
-      description,
-      dailyPrice: +dailyPrice,
-      shared:!!shared,
-      image,
-    },
-  };
-  return bwmAxios.post("/graphql", requestBody);
+export const createRental = rental => {
+  return bwmAxios.post("/graphql", reqCreateRental(rental));
 };
 
 export const updateRental = (
